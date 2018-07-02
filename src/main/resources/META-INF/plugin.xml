@@ -1,0 +1,22 @@
+<idea-plugin>
+  <id>com.intellij.plugin.copy.options</id>
+  <name>Copy Option Path</name>
+  <vendor email="andrey.dernov@gmail.com" url="https://twitter.com/ant_druha">andrey</vendor>
+
+  <description><![CDATA[
+    Adds 'Copy Option Path' action which copies full path to an option from IDE dialogs.<br>
+    ]]></description>
+
+  <idea-version since-build="173"/>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.intellij.modules.lang</depends>
+
+  <actions>
+    <action id="CopyOptionsPath" description="Copies option path to clipboard" text="Copy Option Path"
+            class="com.intellij.plugin.copyOptionPath.actions.CopyOptionsPath">
+      <add-to-group group-id="CutCopyPasteGroup" anchor="last"/>
+    </action>
+  </actions>
+
+</idea-plugin>
