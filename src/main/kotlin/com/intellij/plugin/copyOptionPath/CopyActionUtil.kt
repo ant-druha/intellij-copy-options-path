@@ -5,7 +5,6 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.newEditor.SettingsDialog
 import com.intellij.openapi.roots.ui.configuration.ProjectStructureConfigurable
-import com.intellij.openapi.util.SystemInfo
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.ui.border.IdeaTitledBorder
 import com.intellij.ui.tabs.JBTabs
@@ -14,7 +13,6 @@ import com.intellij.util.ui.UIUtil
 import java.awt.Component
 import java.awt.Point
 import java.awt.event.MouseEvent
-import java.lang.StringBuilder
 import java.lang.reflect.Field
 import java.util.*
 import javax.swing.JPanel
@@ -84,12 +82,12 @@ fun trimFinalResult(path: StringBuilder): String {
 }
 
 fun getInheritedPrivateField(type: Class<Any>, name: String, orClassName: String?): Field? {
-  var i: Class<Any> = type;
+  var i: Class<Any> = type
   while (i != Object::class.java) {
     for (f in i.declaredFields) {
       if (name == f.name || (orClassName != null && f.type.name == orClassName)) return f
     }
-    i = i.getSuperclass();
+    i = i.getSuperclass()
   }
 
   return null
@@ -114,7 +112,7 @@ fun getPathFromSettingsDialog(settings: SettingsDialog): String? {
     bkViews.isAccessible = true
     val bkInst = bk.get(bannerInstance)
     val views = bkViews.get(bkInst) as?ArrayList<*>
-    var path = if (SystemInfo.isMac) "Preferences | " else "File | Settings | "
+    var path = "Settings (Preferences on macOS) | "
     views?.forEachIndexed { i, cr ->
       val text = cr.javaClass.getDeclaredField("text")
       text.isAccessible = true
