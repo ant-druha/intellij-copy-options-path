@@ -16,6 +16,12 @@
     <action id="CopyOptionsPath" description="Copies option path to clipboard" text="Copy Option Path"
             class="com.intellij.plugin.copyOptionPath.actions.CopyOptionsPath">
       <add-to-group group-id="CutCopyPasteGroup" anchor="last"/>
+      <mouse-shortcut keymap="$default" keystroke="control button1"/>
+      <mouse-shortcut keymap="Mac OS X 10.5+" keystroke="meta button1"/>
+      <mouse-shortcut keymap="Mac OS X" keystroke="meta button1"/>
+      <mouse-shortcut keymap="Default for GNOME" keystroke="control button1"/>
+      <mouse-shortcut keymap="Default for KDE" keystroke="control button1"/>
+      <mouse-shortcut keymap="Default for XWin" keystroke="control button1"/>
     </action>
   </actions>
 
