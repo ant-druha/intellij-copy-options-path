@@ -34,7 +34,7 @@ class CopyOptionsPath : DumbAwareAction() {
     val result = trimFinalResult(path)
     LOG.debug("Selected path: $result")
     e.inputEvent.consume()
-    CopyPasteManager.getInstance().setContents(TextTransferable(result))
+    CopyPasteManager.getInstance().setContents(TextTransferable(result, result))
   }
 
   private fun buildOptionPath(src: Component, path: StringBuilder, e: AnActionEvent): Boolean {

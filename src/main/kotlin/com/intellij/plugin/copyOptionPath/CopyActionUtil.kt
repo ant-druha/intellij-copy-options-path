@@ -4,9 +4,9 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.newEditor.SettingsDialog
-import com.intellij.openapi.roots.ui.configuration.ProjectStructureConfigurable
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.ui.border.IdeaTitledBorder
+import com.intellij.ui.navigation.History
 import com.intellij.ui.tabs.JBTabs
 import com.intellij.ui.treeStructure.treetable.TreeTable
 import com.intellij.util.ui.UIUtil
@@ -128,11 +128,25 @@ fun getPathFromSettingsDialog(settings: SettingsDialog): String? {
 }
 
 fun appendPathFromProjectStructureDialog(configurable: Configurable, path: StringBuilder) {
-  if (configurable is ProjectStructureConfigurable) {
-    val place = configurable.history.query()
-    val structureCfg = place.getPath(ProjectStructureConfigurable.CATEGORY)
-    val structurePath = (structureCfg as? Configurable)?.displayName ?: ""
-    appendItem(path, structurePath)
+  try {
+    val cfg = Class.forName("com.intellij.openapi.roots.ui.configuration.ProjectStructureConfigurable")
+    if (cfg.isInstance(configurable)) {
+      for (f in cfg.declaredFields) {
+        if ("myHistory" == f.name || f.type.name == "com.intellij.ui.navigation.History") {
+          f.isAccessible = true
+          val history = f.get(configurable) as? History ?: return
+          val place = history.query()
+          val structureCfg = place.getPath("category")
+          val structurePath = (structureCfg as? Configurable)?.displayName ?: ""
+          appendItem(path, structurePath)
+        }
+      }
+    }
+  } catch (e: ClassNotFoundException) {
+    LOG.warn("Can not get project structure path: " + e.message)
+  } catch (e: Exception) {
+    LOG.warn("Can not get project structure path: " + e.message)
+    e.printStackTrace()
   }
 }
 
