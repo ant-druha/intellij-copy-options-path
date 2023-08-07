@@ -112,7 +112,7 @@ fun getPathFromSettingsDialog(settings: SettingsDialog): String? {
     bkViews.isAccessible = true
     val bkInst = bk.get(bannerInstance)
     val views = bkViews.get(bkInst) as?ArrayList<*>
-    var path = "Settings (Preferences on macOS) | "
+    var path = "Settings | "
     views?.forEachIndexed { i, cr ->
       val text = cr.javaClass.getDeclaredField("text")
       text.isAccessible = true
