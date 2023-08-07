@@ -1,16 +1,19 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.11'
-    id 'org.jetbrains.kotlin.jvm' version '1.2.50'
+    id 'org.jetbrains.intellij' version '1.15.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.0'
 }
 
 group 'com.intellij.plugin.copy.options'
-version '0.3'
+version '0.4'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 17
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
 
 dependencies {
@@ -25,13 +28,13 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 intellij {
-//    type 'PC'
-    version '2019.2.4'// https://www.jetbrains.com/intellij-repository/[releases|snapshots]
+    type = 'IC'
+    version = '2022.3'// https://www.jetbrains.com/intellij-repository/[releases|snapshots]
     updateSinceUntilBuild = false
-    pluginName 'CopyOptionPath'
+    pluginName = 'CopyOptionPath'
 }
 patchPluginXml {
-    changeNotes """
+    changeNotes = """
       Adds 'Copy Option Path' action to copy full path to an option from IDE dialogs.<br>
       """
 }
