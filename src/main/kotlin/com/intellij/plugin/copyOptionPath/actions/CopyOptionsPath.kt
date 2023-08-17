@@ -2,6 +2,7 @@ package com.intellij.plugin.copyOptionPath.actions
 
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
+import com.intellij.openapi.application.ApplicationNamesInfo
 import com.intellij.openapi.ide.CopyPasteManager
 import com.intellij.openapi.options.ex.SingleConfigurableEditor
 import com.intellij.openapi.options.newEditor.SettingsDialog
@@ -10,7 +11,6 @@ import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.plugin.copyOptionPath.*
 import com.intellij.ui.treeStructure.Tree
 import com.intellij.ui.treeStructure.treetable.TreeTable
-import com.intellij.util.PlatformUtils
 import com.intellij.util.ui.TextTransferable
 import java.awt.Component
 import javax.swing.AbstractButton
@@ -44,7 +44,11 @@ class CopyOptionsPath : DumbAwareAction() {
       appendItem(path, startPath)
     } else {
       appendItem(path, dialog.title)
-      if (dialog is SingleConfigurableEditor && PlatformUtils.isIntelliJ()) {
+    if (dialog is SingleConfigurableEditor
+        && (ApplicationNamesInfo.getInstance().productName.equals("idea", true)
+                || ApplicationNamesInfo.getInstance().productName.contains("edu", true)
+                )
+    ) {
         appendPathFromProjectStructureDialog(dialog.configurable, path)
       }
     }

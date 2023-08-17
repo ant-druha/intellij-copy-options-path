@@ -7,7 +7,7 @@
     Adds 'Copy Option Path' action which copies full path to an option from IDE dialogs.<br>
     ]]></description>
 
-  <idea-version since-build="173"/>
+  <idea-version since-build="192.5728.98"/>
 
   <depends>com.intellij.modules.platform</depends>
   <depends>com.intellij.modules.lang</depends>
