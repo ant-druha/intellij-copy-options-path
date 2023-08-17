@@ -78,7 +78,7 @@ fun appendSrcText(path: StringBuilder, text: String?) {
 
 fun trimFinalResult(path: StringBuilder): String {
   val text = path.toString().trimEnd { c -> c == '|' || c == ' ' }
-  return text.deleteTag("html").deleteTag("br").deleteTag("b")
+  return text.deleteAnyTag()
 }
 
 fun getInheritedPrivateField(type: Class<Any>, name: String, orClassName: String?): Field? {
@@ -152,4 +152,8 @@ fun appendPathFromProjectStructureDialog(configurable: Configurable, path: Strin
 
 private fun String.deleteTag(tag: String): String {
   return this.replace("<$tag>", "").replace("</$tag>", "")
+}
+
+private fun String.deleteAnyTag(): String {
+  return this.replace(Regex("<[^>]*>"), "")
 }
